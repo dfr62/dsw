@@ -55,9 +55,9 @@ of _[suckless]_ site.
 7. Run `dsw build` from the project directory and you'll obtain the site in
    `htdocs`.  The script appends also to the file `lastgen.time` the time of
    generation.  The next time you'll build the site only files that are more
-   recent of its modified time will be parsed.  You can reset it to an older
-   default value (2000-01-01) with the command `dsw reset` and so rebuild all the
-   site with `dsw build`.
+   recent or modified more recently of its modified time will be parsed. 
+   You can reset it to an older default value (2000-01-01) with the command
+   `dsw reset` and so rebuild all the site with `dsw build`.
 8. To test the site go in `htdocs`, start the simple python webserver with the command
    `python -m SimpleHTTPServer` and from the browser visit `localhost:8000`
 9. Navigating the site is simple. The name of the files and directories are
