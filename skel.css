@@ -1,0 +1,48 @@
+body {}
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+a {}
+a:hover {}
+#header {}
+#header a {}
+#headerTitle {}
+#headerSubtitle {}
+#menu {}
+#menu a {}
+#menu a:hover {}
+.thisdir {}
+.sections {}
+#menu .menunow {}
+#main {}
+#navbar {}
+#navbar ul {}
+#navbar li {}
+#navbar li a {}
+#navbar .sidefile a {}
+#navbar .thispage a {}
+#navbar .sidedir a {}
+#content {}
+#footer {}
+.left {}
+.right {}
+#google_translate_element {}
+@media print {}
+  body {}
+  a {}
+  hr.light {}
+  #header {}
+  #header a {}
+  #headerTitle {}
+  #headerSubtitle {}
+  #main {}
+  #content {}
+  #menu {display: none;}
+  #navbar {display: none;}
+  .thisdir {display: none;}
+  #footer img {display: none;}
+  .right {display: none;}
+  .left {display: none;}
+}
