@@ -34,7 +34,7 @@ of _[suckless]_ site.
 ## Howto
 
 1. Make a dir for a site project and go there. You always have to run `dsw` from there!
-2. `dsw init` creates a dir for text files (`content`) and for static site (`htdocs`)
+2. The command `dsw init` creates a dir for text files (`content`) and for static site (`htdocs`)
    It creates also an empty css file, an header and footer template, an
    `images` and `css` directory in `htdocs`. Creates a standard `dsw.conf`. 
 3. Write some text files and directories in `content` with this advice:
@@ -43,22 +43,21 @@ of _[suckless]_ site.
    the site. Change title and subtitle of your site in `dsw.conf`.
 4. The markup of text files is what you like more (markdown,
    txt2tags, html and so on -- or none): you must have the parser to
-   generate html snippets from them and configure the appropriate variable
-   in `dsw.conf`: `markhandler`.  The parser must read from stdin and write
+   generate html snippets from them and you must configure the appropriate variable
+   in dsw.conf: `markhandler`.  The parser must read from stdin and write
    to stdout (I personally use _[pandoc]_).  The `fext` variable defines the
-   extension of text files: only them will be parse by the script.  It must
-   have a dot!  Like name.ext.
+   extension of text filenames: only them will be parse by the script.  It must
+   have a dot!  Like: `fext=".md".
 5. If you link local images put them by hand in htdocs/images directory and link them
    from the text file.
 6. For starting to styling your site you can initially use the standard
    `default.css` file from the distribution.
-7. Run `dsw` from the project directory and you'll obtain the site in
-   `htdocs`.  The script appends also to the `lastgen.time` file the time of
+7. Run `dsw build` from the project directory and you'll obtain the site in
+   `htdocs`.  The script appends also to the file `lastgen.time` the time of
    generation.  The next time you'll build the site only files that are more
-   recent of its modified time will be parsed.  You can reset them to an older
+   recent of its modified time will be parsed.  You can reset it to an older
    default value (2000-01-01) with the command `dsw reset` and so rebuild all the
    site with `dsw build`.
-
 8. To test the site go in `htdocs`, start the simple python webserver with the command
    `python -m SimpleHTTPServer` and from the browser visit `localhost:8000`
 9. Navigating the site is simple. The name of the files and directories are
