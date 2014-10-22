@@ -144,7 +144,13 @@ dsw_makedir() # create directories in $out_dir if necessary
 dsw_page()
 {
 	# Sections of site (directories in root dir of src_dir) -- we need it for dsw_menu
-	dsex=$(for dir in `ls -d ${src_dir}/*/`; do echo ${dir#*/}; done)
+
+#	ifsex=$(ls -d ${src_dir}/*/ 2>/dev/null)
+#	( [ -n "$ifsex" ]] && dsex=$(for dir in "$ifsex"; do echo ${dir#*/}; done) ) || dsex=""
+#	echo $dsex
+
+	# 2>/dev/null if there are no dirs in $src_dir.
+	dsex=$(for dir in `ls -d ${src_dir}/*/ 2>/dev/null`; do echo ${dir#*/}; done)
 	
 	dsw_header
 	dsw_menu $1 "$dsex"
@@ -155,7 +161,19 @@ dsw_page()
 
 dsw_build()
 {
-	sfiles=$(find $src_dir -name \*${fext} -newer "$lastgen")
+	if [ -z "$1" ]; then # no $1, rebuilds all site
+		sfiles=$(find $src_dir -name \*${fext}) # builds all files
+	else
+        # if has an argument builds only files changed from last build (`dsw news`).
+        #
+        # WARNING! Use only if EXISTING files has been modified and don't use if
+        # directory structure has changed or new files has been created after last
+        # build!  Menu and navbar of non regenerated html files cannot mirror these
+        # changes!  If so build all site with `dsw build`
+		sfiles=$(find $src_dir -name \*${fext} -newer "$lastgen") # only newer files
+		[ -z "$sfiles" ] && echo "No news" && exit 0 # no changes
+	fi
+	
 	for F in ${sfiles}
 	do
 		dsw_makedir "$F" # make dirs if necessary
@@ -168,8 +186,9 @@ dsw_build()
 	date >> $lastgen
 }
 
-dsw_reset() # resets $lastgen to an old value (2000-01-01) so one can rebuild all site
+dsw_reset() # delete content of $lastgen and resets it to an old value (2000-01-01) 
 {
+	echo > $lastgen
 	touch -t 200001010001 $lastgen
 }
 
@@ -286,6 +305,7 @@ dsw_help()
 	echo "USAGE"
 	echo "-----"
 	echo "${0##*/} build          -- builds the static site in ${out_dir}/"
+	echo "${0##*/} news           -- builds only files changed from last build"
 	echo "${0##*/} page filename  -- builds a single page from a file in ${src_dir}/ to stdout"
 	echo "${0##*/} init           -- initialize a new project directory here in $PWD"
 	echo "${0##*/} reset          -- resets time of generated site to an old value"
@@ -298,6 +318,9 @@ dsw_help()
 case $1 in
 	build)
 		dsw_build
+		;;
+	news)
+		dsw_build news
 		;;
 	page)
 		( [ "$2" ] && dsw_page "$2" ) || ( dsw_help && exit 7 )

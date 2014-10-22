@@ -23,6 +23,7 @@ of _[suckless]_ site.
   USAGE
   -----
   dsw build          -- builds the static site in htdocs/
+  dsw news           -- build only files changed from last build
   dsw page filename  -- builds a single page from a file in content/ to stdout
   dsw init           -- initialize a new project directory here in $PWD
   dsw reset          -- resets time of generated site to an old value
@@ -54,10 +55,16 @@ of _[suckless]_ site.
    `default.css` file from the distribution.
 7. Run `dsw build` from the project directory and you'll obtain the site in
    `htdocs`.  The script appends also to the file `lastgen.time` the time of
-   generation.  The next time you'll build the site only files that are more
-   recent or modified more recently of its modified time will be parsed. 
-   You can reset it to an older default value (2000-01-01) with the command
-   `dsw reset` and so rebuild all the site with `dsw build`.
+   generation.  The next time you'll build the site you can choice to
+   rebuild all site with the same command `dsw build` or only the modified
+   files with command `dsw news`.  WARNING!  Make this last choice only if
+   you are sure to have modified **existing** files without having
+   added/deleted directories or files (on the contrary the old html files
+   not rebuilded will have menu and navbar not updated!).  `dsw news` is
+   useful if you want to rebuild some pages immediately after you make
+   changes in some existing files.  In all other cases use `dsw build`. 
+   With command `dsw reset` you delete the content of file `lastgen.time`
+   and set its modification time to and old basic value (2001-01-01).
 8. To test the site go in `htdocs`, start the simple python webserver with the command
    `python -m SimpleHTTPServer` and from the browser visit `localhost:8000`
 9. Navigating the site is simple. The name of the files and directories are
