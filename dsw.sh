@@ -144,13 +144,14 @@ dsw_makedir() # create directories in $out_dir if necessary
 dsw_page()
 {
 	# Sections of site (directories in root dir of src_dir) -- we need it for dsw_menu
+	# Excluding those beginning with an underscore "_"!
 
 #	ifsex=$(ls -d ${src_dir}/*/ 2>/dev/null)
 #	( [ -n "$ifsex" ]] && dsex=$(for dir in "$ifsex"; do echo ${dir#*/}; done) ) || dsex=""
 #	echo $dsex
 
 	# 2>/dev/null if there are no dirs in $src_dir.
-	dsex=$(for dir in `ls -d ${src_dir}/*/ 2>/dev/null`; do echo ${dir#*/}; done)
+	dsex=$(for dir in `ls -d ${src_dir}/[!_]*/ 2>/dev/null`; do echo ${dir#*/}; done)
 	
 	dsw_header
 	dsw_menu $1 "$dsex"
